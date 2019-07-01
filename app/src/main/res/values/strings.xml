@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">The Social Media</string>
+    <string name="title_posts">Posts</string>
+    <string name="title_album">Album</string>
+    <string name="title_maps">Maps</string>
+    <string name="action_settings">Settings</string>
+</resources>
