@@ -6,7 +6,7 @@ import com.google.gson.Gson
 
 object SharedPreferencesUtils {
 
-    fun <T> retornaUsuario(context: Context, sharedKey: String,objetoKey: String ,clazz: Class<T>): T {
+    fun <T> buscaObjeto(context: Context, sharedKey: String,objetoKey: String ,clazz: Class<T>): T {
         val sharedPreference = context
             .getSharedPreferences(sharedKey, Context.MODE_PRIVATE)
         val gson = Gson()

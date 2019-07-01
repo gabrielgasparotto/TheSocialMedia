@@ -10,7 +10,7 @@ class UsuarioUtils {
 
         fun populaUsuario(context: Context){
             usuario = SharedPreferencesUtils
-                .retornaUsuario(context, StringKeys.userDB, StringKeys.userObjeto, Users::class.java)
+                .buscaObjeto(context, StringKeys.userDB, StringKeys.userObjeto, Users::class.java)
         }
     }
 
