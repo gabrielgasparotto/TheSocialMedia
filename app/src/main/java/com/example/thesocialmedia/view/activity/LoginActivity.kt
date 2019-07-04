@@ -73,8 +73,7 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreference = getSharedPreferences(StringKeys.userDB
             , Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        val gson = Gson()
-        val json = gson.toJson(usuario)
+        val json = Gson().toJson(usuario)
         editor.putString(StringKeys.userObjeto, json)
         editor.apply()
     }

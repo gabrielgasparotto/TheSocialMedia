@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.thesocialmedia.R
+import com.example.thesocialmedia.util.UsuarioUtils
 import com.example.thesocialmedia.view.fragment.AlbumFragment
 import com.example.thesocialmedia.view.fragment.MapsFragment
 import com.example.thesocialmedia.view.fragment.PostsFragment
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_posts
+        UsuarioUtils.populaUsuario(applicationContext)
     }
 
 }
