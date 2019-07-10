@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.thesocialmedia.R
-import com.example.thesocialmedia.api.configuration.RetrofitInitializer
-import com.example.thesocialmedia.extension.callback
+import com.example.thesocialmedia.api.call.UsersCall
+import com.example.thesocialmedia.api.events.UsersEvent
 import com.example.thesocialmedia.model.Users
 import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.app.Constants
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,34 +21,35 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        EventBus.getDefault().register(this)
+
         buttonLogin.setOnClickListener {
             if(usernameLogin.text.toString().isNullOrBlank()){
                 SnackbarUtils().showSnack("Null or Blank", buttonLogin, applicationContext)
             }else{
-                consultaUsuario(usernameLogin.text.toString())
+                UsersCall.consultaUsuario(usernameLogin.text.toString(), this, buttonLogin)
             }
         }
     }
 
-    private fun consultaUsuario(username: String){
-        val call = RetrofitInitializer().usersService().loginByUsername(username)
-        call.enqueue(callback({ response ->
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
-            if(response.body().isNullOrEmpty()){
-                SnackbarUtils().showSnack("User not found", buttonLogin, applicationContext)
-            }else{
-                val usuario = response.body()!!.get(0)
-                checkBoxPermaneceLogado()
-                efetuaLogin()
-                mantemDadosUsuario(usuario)
-            }
+    @Subscribe
+    fun onEvent(usersEvent: UsersEvent){
+        if(usersEvent.erro != null){
+            tratarErro(usersEvent.erro)
+        }else{
+            efetuaLogin()
+            checkBoxPermaneceLogado()
+            mantemDadosUsuario(usersEvent.users[0])
+        }
+    }
 
-        },{ throwable ->
-
-            SnackbarUtils().showSnack("Connection error!", buttonLogin, applicationContext)
-            Log.v("retrofitResponse", "${throwable.message}")
-
-        }))
+    fun tratarErro(throwable: Throwable){
+        SnackbarUtils().showSnack("Error", buttonLogin, applicationContext)
     }
 
     private fun efetuaLogin() {
