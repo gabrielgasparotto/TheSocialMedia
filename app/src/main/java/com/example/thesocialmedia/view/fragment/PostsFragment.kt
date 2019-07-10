@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.api.events.PostsEvent
 import com.example.thesocialmedia.api.call.PostsCall
@@ -70,7 +71,7 @@ class PostsFragment : Fragment() {
     }
 
     private fun tratarErro(throwable: Throwable) {
-        Log.v("recyclerCancel", throwable.message)
+        Toast.makeText(context, throwable.message, Toast.LENGTH_LONG).show()
     }
 
     @Subscribe
