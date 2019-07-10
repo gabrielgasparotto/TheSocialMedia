@@ -5,14 +5,19 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 import com.example.thesocialmedia.R
+import com.example.thesocialmedia.api.call.GaleriaCall
 import com.example.thesocialmedia.api.configuration.RetrofitInitializer
+import com.example.thesocialmedia.api.events.PhotosEvent
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Album
 import com.example.thesocialmedia.model.Photos
 import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.adapter.GaleriaAdapter
 import kotlinx.android.synthetic.main.activity_galeria.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class GaleriaActivity : AppCompatActivity() {
 
@@ -21,15 +26,21 @@ class GaleriaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_galeria)
         setSupportActionBar(toolbarGaleria)
 
-        val album = intent.getSerializableExtra("album") as Album
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-            title = album.title
-        }
-        toolbarGaleria.setTitleTextColor(Color.WHITE)
+        EventBus.getDefault().register(this)
 
-        listaGaleria(album)
+        val album = intent.getSerializableExtra("album") as Album
+        GaleriaCall.listaGaleria(album, this, recyclerGaleria)
+        configuraToolbar(album)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     private fun configuraRecycler(fotos: ArrayList<Photos>) {
@@ -40,31 +51,25 @@ class GaleriaActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    private fun configuraToolbar(album: Album) {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            title = album.title
+        }
+        toolbarGaleria.setTitleTextColor(Color.WHITE)
     }
 
-    private fun listaGaleria(album: Album){
-        val call = RetrofitInitializer().galeriaService().allPhotosByAlbumId(album.id)
-        call.enqueue(callback({ response ->
+    @Subscribe
+    fun onEvent(photosEvent: PhotosEvent){
+        if(photosEvent.erro != null){
+            tratarErro(photosEvent.erro)
+        }else{
+            configuraRecycler(photosEvent.photos)
+        }
+    }
 
-            val photos = response.body()
-            if(photos.isNullOrEmpty()){
-                SnackbarUtils()
-                    .showSnack("Nothing to show"
-                        , recyclerGaleria, applicationContext)
-            }else{
-                configuraRecycler(photos)
-            }
-
-        },{ throwable ->
-
-            SnackbarUtils()
-                .showSnack("${throwable.message}"
-                    , recyclerGaleria, applicationContext)
-
-        }))
+    private fun tratarErro(throwable: Throwable) {
+        Toast.makeText(this, throwable.message , Toast.LENGTH_LONG).show()
     }
 }
