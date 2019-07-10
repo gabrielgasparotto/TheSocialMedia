@@ -30,7 +30,7 @@ object AlbumCall {
             }
 
         },{ throwable ->
-            Log.v("recyclerCancel", throwable.message)
+            EventBus.getDefault().post(AlbumEvent(erro = throwable))
         }))
     }
 
