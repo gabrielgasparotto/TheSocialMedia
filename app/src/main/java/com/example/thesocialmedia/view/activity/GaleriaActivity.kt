@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.example.thesocialmedia.R
-import com.example.thesocialmedia.dao.RetrofitInitializer
+import com.example.thesocialmedia.api.RetrofitInitializer
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Album
 import com.example.thesocialmedia.model.Photos
-import com.example.thesocialmedia.util.CustomSnackbar
+import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.adapter.GaleriaAdapter
 import kotlinx.android.synthetic.main.activity_galeria.*
 
@@ -52,7 +52,7 @@ class GaleriaActivity : AppCompatActivity() {
 
             val photos = response.body()
             if(photos.isNullOrEmpty()){
-                CustomSnackbar()
+                SnackbarUtils()
                     .showSnack("Nothing to show"
                         , recyclerGaleria, applicationContext)
             }else{
@@ -61,7 +61,7 @@ class GaleriaActivity : AppCompatActivity() {
 
         },{ throwable ->
 
-            CustomSnackbar()
+            SnackbarUtils()
                 .showSnack("${throwable.message}"
                     , recyclerGaleria, applicationContext)
 

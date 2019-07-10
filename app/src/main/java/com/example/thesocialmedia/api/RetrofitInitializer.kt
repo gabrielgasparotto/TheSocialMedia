@@ -1,5 +1,9 @@
-package com.example.thesocialmedia.dao
+package com.example.thesocialmedia.api
 
+import com.example.thesocialmedia.api.service.AlbumService
+import com.example.thesocialmedia.api.service.GaleriaService
+import com.example.thesocialmedia.api.service.PostsService
+import com.example.thesocialmedia.api.service.UsersService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

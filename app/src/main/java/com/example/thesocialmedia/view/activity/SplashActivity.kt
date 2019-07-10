@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.thesocialmedia.R
 import android.content.Intent
 import android.os.Handler
-import com.example.thesocialmedia.util.StringKeys
+import com.example.thesocialmedia.app.Constants
 import com.example.thesocialmedia.util.UsuarioUtils
 
 
@@ -17,8 +17,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val handle = Handler()
-        val sharedPreference =  getSharedPreferences(StringKeys.permaneceDB, Context.MODE_PRIVATE)
-        val teste = sharedPreference.getBoolean(StringKeys.userPermanece, false)
+        val sharedPreference =  getSharedPreferences(Constants.permaneceDB, Context.MODE_PRIVATE)
+        val teste = sharedPreference.getBoolean(Constants.userPermanece, false)
 
         handle.postDelayed(Runnable {
             if(teste){

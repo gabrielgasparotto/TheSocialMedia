@@ -11,30 +11,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.thesocialmedia.R
-import com.example.thesocialmedia.dao.RetrofitInitializer
-import com.example.thesocialmedia.extension.callback
+import com.example.thesocialmedia.api.events.PostsEvent
+import com.example.thesocialmedia.api.call.PostsCall
 import com.example.thesocialmedia.model.Posts
 import com.example.thesocialmedia.model.Users
-import com.example.thesocialmedia.util.*
 import com.example.thesocialmedia.util.adapter.PostsAdapter
 import com.example.thesocialmedia.util.UsuarioUtils
 import kotlinx.android.synthetic.main.fragment_posts.*
-import retrofit2.Call
-
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class PostsFragment : Fragment() {
 
-    lateinit var call: Call<ArrayList<Posts>>
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
+
+        EventBus.getDefault().register(this)
         return inflater.inflate(R.layout.fragment_posts, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usuario = UsuarioUtils.usuario
-        listaPosts(usuario)
+        PostsCall.listaPosts(usuario, activity!!.applicationContext, recyclerPosts)
         configuraToolbar(usuario)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
+        if (PostsCall.call.isExecuted) {
+            PostsCall.call.cancel()
+        }
     }
 
     private fun configuraToolbar(usuario: Users) {
@@ -54,37 +61,24 @@ class PostsFragment : Fragment() {
         companyToolbar.text = usuario.company.name
     }
 
-    fun listaPosts(usuario: Users){
-        call = RetrofitInitializer().postsService().allPosts(usuario.id)
-        call.enqueue(callback({ response ->
-
-            val posts = response.body()
-            if(posts.isNullOrEmpty()){
-                CustomSnackbar()
-                    .showSnack("Nothing to show"
-                        , recyclerPosts, activity!!.applicationContext)
-            }else{
-                configuraRecycler(posts)
-                ObservableExample.observableExample(posts)
-            }
-
-        },{ throwable ->
-            Log.v("recyclerCancel", throwable.message)
-        }))
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        if(call.isExecuted){
-            call.cancel()
-        }
-    }
-
     private fun configuraRecycler(posts: ArrayList<Posts>) {
         recyclerPosts.apply {
             layoutManager = LinearLayoutManager(activity)
             layoutManager = GridLayoutManager(activity, 1)
             adapter = PostsAdapter(posts)
+        }
+    }
+
+    private fun tratarErro(throwable: Throwable) {
+        Log.v("recyclerCancel", throwable.message)
+    }
+
+    @Subscribe
+    fun onEvent(evento: PostsEvent) {
+        if (evento.erro != null) {
+            tratarErro(evento.erro)
+        } else {
+            configuraRecycler(evento.posts)
         }
     }
 }

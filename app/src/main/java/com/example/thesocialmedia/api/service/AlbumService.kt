@@ -1,4 +1,4 @@
-package com.example.thesocialmedia.dao
+package com.example.thesocialmedia.api.service
 
 import com.example.thesocialmedia.model.Album
 import retrofit2.Call

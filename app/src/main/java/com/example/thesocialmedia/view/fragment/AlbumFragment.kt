@@ -15,10 +15,10 @@ import com.example.thesocialmedia.util.adapter.AlbumAdapter
 import kotlinx.android.synthetic.main.fragment_album.*
 import android.content.res.ColorStateList
 import android.util.Log
-import com.example.thesocialmedia.dao.RetrofitInitializer
+import com.example.thesocialmedia.api.RetrofitInitializer
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Users
-import com.example.thesocialmedia.util.CustomSnackbar
+import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.UsuarioUtils
 import retrofit2.Call
 
@@ -44,7 +44,7 @@ class AlbumFragment : Fragment() {
 
             val albums = response.body()
             if(albums.isNullOrEmpty()){
-                CustomSnackbar()
+                SnackbarUtils()
                     .showSnack("Nothing to show"
                         , recyclerAlbums, activity!!.applicationContext)
             }else{

@@ -1,4 +1,4 @@
-package com.example.thesocialmedia.util;
+package com.example.thesocialmedia.api.observable;
 
 import android.util.Log;
 import com.example.thesocialmedia.model.Posts;

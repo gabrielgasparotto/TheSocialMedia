@@ -1,6 +1,7 @@
 package com.example.thesocialmedia.util
 
 import android.content.Context
+import com.example.thesocialmedia.app.Constants
 import com.example.thesocialmedia.model.Users
 
 class UsuarioUtils {
@@ -10,7 +11,7 @@ class UsuarioUtils {
 
         fun populaUsuario(context: Context){
             usuario = SharedPreferencesUtils
-                .buscaObjeto(context, StringKeys.userDB, StringKeys.userObjeto, Users::class.java)
+                .buscaObjeto(context, Constants.userDB, Constants.userObjeto, Users::class.java)
         }
     }
 

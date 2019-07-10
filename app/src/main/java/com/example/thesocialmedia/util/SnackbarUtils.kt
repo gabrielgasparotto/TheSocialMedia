@@ -7,7 +7,7 @@ import android.view.View
 import com.example.thesocialmedia.R
 import kotlinx.android.synthetic.main.activity_login.*
 
-class CustomSnackbar {
+class SnackbarUtils {
 
     fun showSnack(msg: String, view: View, context: Context) {
         val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)

@@ -1,6 +1,6 @@
-package com.example.thesocialmedia.util
+package com.example.thesocialmedia.app
 
-class StringKeys{
+class Constants{
 
     companion object {
         val userDB = "USUARIO_LOGADO"
