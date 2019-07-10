@@ -2,7 +2,7 @@ package com.example.thesocialmedia.api.call
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import com.example.thesocialmedia.api.RetrofitInitializer
+import com.example.thesocialmedia.api.configuration.RetrofitInitializer
 import com.example.thesocialmedia.api.events.PostsEvent
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Users

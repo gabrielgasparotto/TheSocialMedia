@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.thesocialmedia.R
-import com.example.thesocialmedia.api.RetrofitInitializer
+import com.example.thesocialmedia.api.configuration.RetrofitInitializer
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Users
 import com.example.thesocialmedia.util.SnackbarUtils

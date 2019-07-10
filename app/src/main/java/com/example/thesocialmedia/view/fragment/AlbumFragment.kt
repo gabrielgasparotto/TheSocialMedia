@@ -15,51 +15,39 @@ import com.example.thesocialmedia.util.adapter.AlbumAdapter
 import kotlinx.android.synthetic.main.fragment_album.*
 import android.content.res.ColorStateList
 import android.util.Log
-import com.example.thesocialmedia.api.RetrofitInitializer
+import android.widget.Toast
+import com.example.thesocialmedia.api.call.AlbumCall
+import com.example.thesocialmedia.api.configuration.RetrofitInitializer
+import com.example.thesocialmedia.api.events.AlbumEvent
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Users
 import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.UsuarioUtils
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Call
 
 
 class AlbumFragment : Fragment() {
 
-    lateinit var call: Call<ArrayList<Album>>
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        EventBus.getDefault().register(this)
         return inflater.inflate(R.layout.fragment_album, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usuario = UsuarioUtils.usuario
-        listaAlbums(usuario)
+        AlbumCall.listaAlbums(usuario, activity!!.applicationContext, recyclerAlbums)
         configuraToolbar(usuario)
-    }
-
-    private fun listaAlbums(usuario: Users){
-        call = RetrofitInitializer().albumService().allAlbumsByUserId(usuario.id)
-        call.enqueue(callback({ response ->
-
-            val albums = response.body()
-            if(albums.isNullOrEmpty()){
-                SnackbarUtils()
-                    .showSnack("Nothing to show"
-                        , recyclerAlbums, activity!!.applicationContext)
-            }else{
-                configuraRecycler(albums)
-            }
-
-        },{ throwable ->
-            Log.v("recyclerCancel", throwable.message)
-        }))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        if(call.isExecuted){
-           call.cancel()
+        EventBus.getDefault().unregister(this)
+        if(AlbumCall.call.isExecuted){
+           AlbumCall.call.cancel()
         }
     }
 
@@ -87,5 +75,18 @@ class AlbumFragment : Fragment() {
         emailToolbar.text = usuario.email
         telefoneToolbar.text = usuario.phone
         companyToolbar.text = usuario.company.name
+    }
+
+    @Subscribe
+    fun onEvent(albumEvent: AlbumEvent){
+        if(albumEvent.erro != null){
+            tratarErro(albumEvent.erro)
+        }else{
+            configuraRecycler(albumEvent.albums)
+        }
+    }
+
+    private fun tratarErro(erro: Throwable) {
+        Toast.makeText(context, erro.message, Toast.LENGTH_LONG).show()
     }
 }

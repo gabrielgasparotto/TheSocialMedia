@@ -1,4 +1,4 @@
-package com.example.thesocialmedia.api
+package com.example.thesocialmedia.api.configuration
 
 import com.example.thesocialmedia.api.service.AlbumService
 import com.example.thesocialmedia.api.service.GaleriaService
