@@ -5,7 +5,6 @@ import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.example.thesocialmedia.R
-import kotlinx.android.synthetic.main.activity_login.*
 
 class SnackbarUtils {
 

@@ -8,12 +8,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.api.call.GaleriaCall
-import com.example.thesocialmedia.api.configuration.RetrofitInitializer
 import com.example.thesocialmedia.api.events.PhotosEvent
-import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Album
 import com.example.thesocialmedia.model.Photos
-import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.adapter.GaleriaAdapter
 import kotlinx.android.synthetic.main.activity_galeria.*
 import org.greenrobot.eventbus.EventBus

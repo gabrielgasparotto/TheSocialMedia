@@ -1,7 +1,6 @@
 package com.example.thesocialmedia.api.call
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import com.example.thesocialmedia.api.configuration.RetrofitInitializer
 import com.example.thesocialmedia.api.events.UsersEvent

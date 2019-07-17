@@ -10,8 +10,6 @@ import com.example.thesocialmedia.view.fragment.AlbumFragment
 import com.example.thesocialmedia.view.fragment.MapsFragment
 import com.example.thesocialmedia.view.fragment.PostsFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.thesocialmedia.view.fragment.DialogPhotoFragment
-
 
 class MainActivity : AppCompatActivity() {
 

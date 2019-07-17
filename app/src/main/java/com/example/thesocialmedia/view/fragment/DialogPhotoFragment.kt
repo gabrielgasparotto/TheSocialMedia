@@ -1,18 +1,14 @@
 package com.example.thesocialmedia.view.fragment
 
-
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.model.Photos
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.dialog_fragment_photo.*
 import kotlinx.android.synthetic.main.dialog_fragment_photo.view.*
 
 
