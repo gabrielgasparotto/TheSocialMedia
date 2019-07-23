@@ -55,7 +55,7 @@ class GaleriaAdapter(val fotos: ArrayList<Photos>)
         }*/
 
         val dialogFragment = DialogPhotoFragment()
-        holder.imagemItem.setOnTouchListener { v, event ->
+        holder.imagemItem.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_UP -> {
                     hideDialog(dialogFragment)
