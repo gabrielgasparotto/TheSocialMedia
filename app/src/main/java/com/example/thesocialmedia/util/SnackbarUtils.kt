@@ -8,8 +8,8 @@ import com.example.thesocialmedia.R
 
 class SnackbarUtils {
 
-    fun showSnack(msg: String, view: View, context: Context) {
-        val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+    fun showSnack(msg: String, referenceView: View, context: Context) {
+        val snack = Snackbar.make(referenceView, msg, Snackbar.LENGTH_LONG)
         snack.view.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
         snack.show()
     }
