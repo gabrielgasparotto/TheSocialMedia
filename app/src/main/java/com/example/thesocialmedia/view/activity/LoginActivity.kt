@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun tratarErro(throwable: Throwable){
-        SnackbarUtils().showSnack("Error", buttonLogin, applicationContext)
+        SnackbarUtils().showSnack("Connection Error", buttonLogin, applicationContext)
     }
 
     private fun efetuaLogin() {

@@ -7,6 +7,7 @@ class Constants{
         val userObjeto = "usuario"
         val userPermanece = "permaneceLogado"
         val permaneceDB = "PERMANECE_LOGADO"
+        val baseUrl = "https://jsonplaceholder.typicode.com/"
     }
 
 }

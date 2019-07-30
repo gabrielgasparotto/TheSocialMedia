@@ -4,13 +4,16 @@ import com.example.thesocialmedia.api.service.AlbumService
 import com.example.thesocialmedia.api.service.GaleriaService
 import com.example.thesocialmedia.api.service.PostsService
 import com.example.thesocialmedia.api.service.UsersService
+import com.example.thesocialmedia.app.Constants
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInitializer{
 
     private val build = Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com/")
+        .client(OkHttpClient.Builder().build())
+        .baseUrl(Constants.baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

@@ -9,18 +9,13 @@ import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.test.filters.LargeTest
 import android.support.test.runner.AndroidJUnit4
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.app.Constants
 import org.hamcrest.Matchers.allOf
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.*
 
-@LargeTest
 @RunWith(AndroidJUnit4::class)
 class LoginActivityTest {
 
@@ -126,5 +121,4 @@ class LoginActivityTest {
     private fun getAppSharedPref() = InstrumentationRegistry
         .getTargetContext()
         .getSharedPreferences(Constants.permaneceDB, Context.MODE_PRIVATE)
-
 }
