@@ -31,7 +31,7 @@ import com.example.thesocialmedia.view.activity.MainActivity
 @RunWith(AndroidJUnit4::class)
 class PostsFragmentTest {
 
-    private lateinit var server: MockWebServer
+    private lateinit var postsServer: MockWebServer
 
     @Rule @JvmField
     var activityTestRule = ActivityTestRule(
@@ -43,21 +43,21 @@ class PostsFragmentTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        server = MockWebServer()
-        server.start()
+        postsServer = MockWebServer()
+        postsServer.start()
         setupServerUrl()
     }
 
     @Test
     fun quandoResultaComSucesso_mostraListaDePosts() {
-        server.enqueue(MockResponse().setResponseCode(200).setBody(MockPosts.SUCCESS))
+        postsServer.enqueue(MockResponse().setResponseCode(200).setBody(MockPosts.SUCCESS))
         activityTestRule.launchActivity(Intent())
         onView(withId(R.id.recyclerPosts)).check(matches(isDisplayed()))
     }
 
     @Test
     fun quandoResultaComErro_mostrarTratamentoDeErro() {
-        server.enqueue(MockResponse().setResponseCode(400).setBody(MockPosts.ERROR))
+        postsServer.enqueue(MockResponse().setResponseCode(400).setBody(MockPosts.ERROR))
         activityTestRule.launchActivity(Intent())
         //Mostrar tratamento de erro
     }
@@ -65,11 +65,11 @@ class PostsFragmentTest {
     @After
     @Throws(IOException::class)
     fun tearDown() {
-        server.shutdown()
+        postsServer.shutdown()
     }
 
     private fun setupServerUrl() {
-        val url = server.url("/").toString()
+        val url = postsServer.url("/").toString()
 
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)

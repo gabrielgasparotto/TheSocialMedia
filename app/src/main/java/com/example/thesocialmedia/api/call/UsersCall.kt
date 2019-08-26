@@ -9,24 +9,26 @@ import com.example.thesocialmedia.model.Users
 import com.example.thesocialmedia.util.SnackbarUtils
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
+import java.lang.Exception
 
 object UsersCall {
 
     lateinit var call: Call<ArrayList<Users>>
 
-    fun consultaUsuario(username: String, context: Context, view: View){
+    fun consultaUsuario(username: String){
         val call = RetrofitInitializer().usersService().loginByUsername(username)
         call.enqueue(callback({ response ->
 
             val users = response.body()
+
             if(users.isNullOrEmpty()){
-                SnackbarUtils().showSnack("User not found", view, context)
+                EventBus.getDefault().post(UsersEvent(erro=Exception("User not found")))
             }else{
                 EventBus.getDefault().post(UsersEvent(users))
             }
 
         },{ throwable ->
-            EventBus.getDefault().post(UsersEvent(erro= throwable))
+            EventBus.getDefault().post(UsersEvent(erro=throwable))
         }))
     }
 

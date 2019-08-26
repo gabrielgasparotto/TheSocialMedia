@@ -7,6 +7,7 @@ import com.example.thesocialmedia.R
 import android.content.Intent
 import android.os.Handler
 import com.example.thesocialmedia.app.Constants
+import com.example.thesocialmedia.features.login.LoginActivity
 import com.example.thesocialmedia.util.UsuarioUtils
 
 
