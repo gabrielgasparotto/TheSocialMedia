@@ -1,14 +1,12 @@
 package com.example.thesocialmedia.api.call
 
 import android.content.Context
-import android.provider.SyncStateContract
 import android.support.v7.widget.RecyclerView
 import com.example.thesocialmedia.BuildConfig
 import com.example.thesocialmedia.api.configuration.RetrofitInitializer
 import com.example.thesocialmedia.api.events.PostsEvent
 import com.example.thesocialmedia.extension.callback
 import com.example.thesocialmedia.model.Users
-import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.api.observable.ObservableExample
 import com.example.thesocialmedia.api.service.PostsService
 import com.example.thesocialmedia.app.Constants
@@ -49,10 +47,7 @@ object PostsCall {
 
             val posts = response.body()
             if (posts.isNullOrEmpty()) {
-                SnackbarUtils()
-                    .showSnack("Nothing to show"
-                        , recycler, context
-                    )
+                EventBus.getDefault().post(PostsEvent(erro = Exception("Nothing to show")))
             } else {
                 EventBus.getDefault().post(PostsEvent(posts = posts))
                 ObservableExample.observableExample(posts)

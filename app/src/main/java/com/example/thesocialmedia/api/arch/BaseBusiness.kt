@@ -1,6 +1,7 @@
 package com.example.thesocialmedia.api.arch
 
 import android.content.Context
+import com.example.thesocialmedia.api.call.PostsCall
 import org.greenrobot.eventbus.EventBus
 
 interface BaseBusiness {
