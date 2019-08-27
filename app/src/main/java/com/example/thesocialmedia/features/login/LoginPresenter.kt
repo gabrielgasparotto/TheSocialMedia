@@ -20,18 +20,17 @@ class LoginPresenter(loginUserView: LoginContract.LoginUserView)
         }
     }
 
-    private fun checkBoxPermaneceLogado(permaneceLogado: Boolean) {
+    private fun consultaCheckBox(permaneceLogado: Boolean) {
+        salvarPreferenciaPermaneceLogado(permaneceLogado)
+    }
+
+    private fun salvarPreferenciaPermaneceLogado(permanece: Boolean){
         val sharedPreference = context.getSharedPreferences(
             Constants.permaneceDB, Context.MODE_PRIVATE
         )
         val editor = sharedPreference.edit()
-        if (permaneceLogado) {
-            editor.putBoolean(Constants.userPermanece, true)
-            editor.apply()
-        } else {
-            editor.putBoolean(Constants.userPermanece, false)
-            editor.apply()
-        }
+        editor.putBoolean(Constants.userPermanece, permanece)
+        editor.apply()
     }
 
     private fun mantemDadosUsuario(usuario: Users) {
@@ -50,7 +49,7 @@ class LoginPresenter(loginUserView: LoginContract.LoginUserView)
             loginUserView.exibeSnackbar(usersEvent.erro.message ?: "Erro desconhecido")
         } else {
             loginUserView.irParaTelaInicial()
-            checkBoxPermaneceLogado(loginUserView.obterEstadoCheckboxPermanecerLogado())
+            consultaCheckBox(loginUserView.obterEstadoCheckboxPermanecerLogado())
             mantemDadosUsuario(usersEvent.users[0])
         }
     }
