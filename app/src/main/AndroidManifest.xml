@@ -22,7 +22,7 @@
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".view.activity.GaleriaActivity"
+                android:name=".features.galeria.GaleriaActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

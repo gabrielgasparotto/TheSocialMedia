@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.extension.onClickItem
 import com.example.thesocialmedia.model.Album
-import com.example.thesocialmedia.view.activity.GaleriaActivity
+import com.example.thesocialmedia.features.galeria.GaleriaActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_album.view.*
 

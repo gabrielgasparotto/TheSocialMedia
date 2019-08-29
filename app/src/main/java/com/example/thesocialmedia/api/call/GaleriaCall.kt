@@ -10,20 +10,19 @@ import com.example.thesocialmedia.model.Photos
 import com.example.thesocialmedia.util.SnackbarUtils
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
+import java.lang.Exception
 
 object GaleriaCall{
 
     lateinit var call: Call<ArrayList<Photos>>
 
-    fun listaGaleria(album: Album, context: Context, recyclerView: RecyclerView){
+    fun listaGaleria(album: Album){
         val call = RetrofitInitializer().galeriaService().allPhotosByAlbumId(album.id)
         call.enqueue(callback({ response ->
 
             val photos = response.body()
             if(photos.isNullOrEmpty()){
-                SnackbarUtils()
-                    .showSnack("Nothing to show"
-                        , recyclerView, context)
+                EventBus.getDefault().post(PhotosEvent(erro = Exception("Null or Empty")))
             }else{
                 EventBus.getDefault().post(PhotosEvent(photos))
             }

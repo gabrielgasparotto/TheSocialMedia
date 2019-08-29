@@ -1,4 +1,4 @@
-package com.example.thesocialmedia.view.activity
+package com.example.thesocialmedia.features.galeria
 
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -11,41 +11,23 @@ import com.example.thesocialmedia.api.call.GaleriaCall
 import com.example.thesocialmedia.api.events.PhotosEvent
 import com.example.thesocialmedia.model.Album
 import com.example.thesocialmedia.model.Photos
+import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.adapter.GaleriaAdapter
 import kotlinx.android.synthetic.main.activity_galeria.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class GaleriaActivity : AppCompatActivity() {
+class GaleriaActivity : AppCompatActivity(), GaleriaContract.GaleriaUserView {
+
+    override lateinit var business: GaleriaContract.GaleriaBusiness
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_galeria)
         setSupportActionBar(toolbarGaleria)
-
-        EventBus.getDefault().register(this)
-
-        val album = intent.getSerializableExtra("album") as Album
-        GaleriaCall.listaGaleria(album, this, recyclerGaleria)
+        configurarBusiness(GaleriaPresenter(this, applicationContext))
+        val album = business.configuraAlbum(intent)
         configuraToolbar(album)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
-
-    private fun configuraRecycler(fotos: ArrayList<Photos>) {
-        recyclerGaleria.apply {
-            layoutManager = LinearLayoutManager(context)
-            layoutManager = GridLayoutManager(context, 3)
-            adapter = GaleriaAdapter(fotos)
-        }
     }
 
     private fun configuraToolbar(album: Album) {
@@ -57,16 +39,25 @@ class GaleriaActivity : AppCompatActivity() {
         toolbarGaleria.setTitleTextColor(Color.WHITE)
     }
 
-    @Subscribe
-    fun onEvent(photosEvent: PhotosEvent){
-        if(photosEvent.erro != null){
-            tratarErro(photosEvent.erro)
-        }else{
-            configuraRecycler(photosEvent.photos)
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        business.aoFinalizar()
+    }
+
+    override fun configuraRecycler(photos: ArrayList<Photos>) {
+        recyclerGaleria.apply {
+            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 3)
+            adapter = GaleriaAdapter(photos)
         }
     }
 
-    private fun tratarErro(throwable: Throwable) {
-        Toast.makeText(this, throwable.message , Toast.LENGTH_LONG).show()
+    override fun exibeSnackbar(mensagem: String) {
+        SnackbarUtils().showSnack(mensagem, recyclerGaleria, applicationContext)
     }
 }
