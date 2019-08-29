@@ -11,7 +11,6 @@ class PostsContract {
     interface PostsUserView : BaseUserView<PostsBusiness>{
         fun exibeSnackbar(mensagem: String)
         fun configuraRecycler(posts: ArrayList<Posts>)
-        fun consultaRecycler() : RecyclerView
     }
 
     abstract class PostsBusiness(val postsUserView: PostsUserView) : BaseBusiness {

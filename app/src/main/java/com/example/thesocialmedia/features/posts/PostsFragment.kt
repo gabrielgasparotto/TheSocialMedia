@@ -41,10 +41,8 @@ class PostsFragment : Fragment(), PostsContract.PostsUserView {
     }
 
     override fun exibeSnackbar(mensagem: String) {
-        SnackbarUtils().showSnack(mensagem, buttonLogin, activity!!.applicationContext)
+        SnackbarUtils().showSnack(mensagem, recyclerPosts, activity!!.applicationContext)
     }
-
-    override fun consultaRecycler(): RecyclerView = recyclerPosts
 
     private fun configuraToolbar(usuario: Users) {
         val states = arrayOf(intArrayOf(android.R.attr.state_enabled))

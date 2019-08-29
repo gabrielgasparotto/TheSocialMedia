@@ -11,7 +11,7 @@ class PostsPresenter(postsUserView: PostsContract.PostsUserView)
     override lateinit var context: Context
 
     override fun consultaPosts(usuario: Users) {
-        PostsCall.listaPosts(usuario, context, postsUserView.consultaRecycler())
+        PostsCall.listaPosts(usuario)
     }
 
     override fun aoFinalizar() {

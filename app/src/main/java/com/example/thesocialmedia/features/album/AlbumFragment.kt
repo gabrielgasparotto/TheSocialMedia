@@ -14,40 +14,33 @@ import com.example.thesocialmedia.model.Album
 import com.example.thesocialmedia.util.adapter.AlbumAdapter
 import kotlinx.android.synthetic.main.fragment_album.*
 import android.content.res.ColorStateList
-import android.widget.Toast
-import com.example.thesocialmedia.api.call.AlbumCall
-import com.example.thesocialmedia.api.events.AlbumEvent
+import android.support.v7.widget.RecyclerView
 import com.example.thesocialmedia.model.Users
+import com.example.thesocialmedia.util.SnackbarUtils
 import com.example.thesocialmedia.util.UsuarioUtils
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 
+class AlbumFragment : Fragment(), AlbumContract.AlbumUserView {
 
-class AlbumFragment : Fragment() {
+    override lateinit var business: AlbumContract.AlbumBusiness
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        EventBus.getDefault().register(this)
         return inflater.inflate(R.layout.fragment_album, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usuario = UsuarioUtils.usuario
-        AlbumCall.listaAlbums(usuario, activity!!.applicationContext, recyclerAlbums)
+        configurarBusiness(AlbumPresenter(this), activity!!.applicationContext)
+        business.consultaAlbums(usuario)
         configuraToolbar(usuario)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        EventBus.getDefault().unregister(this)
-        if(AlbumCall.call.isExecuted){
-           AlbumCall.call.cancel()
-        }
+        business.aoFinalizar()
     }
 
-
-    private fun configuraRecycler(albums: ArrayList<Album>) {
+    override fun configuraRecycler(albums: ArrayList<Album>) {
         recyclerAlbums.apply {
             layoutManager = LinearLayoutManager(activity)
             layoutManager = GridLayoutManager(activity, 2)
@@ -72,16 +65,7 @@ class AlbumFragment : Fragment() {
         companyToolbar.text = usuario.company.name
     }
 
-    @Subscribe
-    fun onEvent(albumEvent: AlbumEvent){
-        if(albumEvent.erro != null){
-            tratarErro(albumEvent.erro)
-        }else{
-            configuraRecycler(albumEvent.albums)
-        }
-    }
-
-    private fun tratarErro(erro: Throwable) {
-        Toast.makeText(context, erro.message, Toast.LENGTH_LONG).show()
+    override fun exibeSnackbar(mensagem: String) {
+        SnackbarUtils().showSnack(mensagem, recyclerAlbums, activity!!.applicationContext)
     }
 }

@@ -41,7 +41,7 @@ object PostsCall {
             .create(PostsService::class.java)
     }
 
-    fun listaPosts(usuario: Users, context: Context, recycler: RecyclerView){
+    fun listaPosts(usuario: Users){
         call = RetrofitInitializer().postsService().allPosts(usuario.id)
         call.enqueue(callback({ response ->
 
