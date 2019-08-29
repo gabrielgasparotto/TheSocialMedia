@@ -1,20 +1,19 @@
 package com.example.thesocialmedia.util.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.extension.onClickItem
+import com.example.thesocialmedia.features.album.AlbumContract
 import com.example.thesocialmedia.model.Album
-import com.example.thesocialmedia.features.galeria.GaleriaActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_album.view.*
 
-
-class AlbumAdapter (val albums: ArrayList<Album>): RecyclerView.Adapter<ViewHolderAlbum>(){
+class AlbumAdapter(val albums: ArrayList<Album>, val albumBusiness: AlbumContract.AlbumBusiness) :
+    RecyclerView.Adapter<ViewHolderAlbum>() {
 
     lateinit var context: Context
 
@@ -25,9 +24,7 @@ class AlbumAdapter (val albums: ArrayList<Album>): RecyclerView.Adapter<ViewHold
         )
 
         viewHolder.onClickItem { position, _ ->
-            val intent = Intent(parent.context, GaleriaActivity::class.java)
-            intent.putExtra("album", albums.get(position))
-            parent.context.startActivity(intent)
+            albumBusiness.aoClicarNoAlbum(albums[position])
         }
 
         context = parent.context
@@ -40,7 +37,7 @@ class AlbumAdapter (val albums: ArrayList<Album>): RecyclerView.Adapter<ViewHold
     }
 
     override fun onBindViewHolder(holder: ViewHolderAlbum, position: Int) {
-        var album = albums.get(position)
+        val album = albums[position]
         holder.apply {
             tituloItem.text = album.title
         }
@@ -61,7 +58,7 @@ class AlbumAdapter (val albums: ArrayList<Album>): RecyclerView.Adapter<ViewHold
         )
 
         Picasso.get()
-            .load(arrayListString.get(position))
+            .load(arrayListString[position])
             .fit()
             .centerCrop()
             .into(holder.imagemItem)
@@ -69,18 +66,18 @@ class AlbumAdapter (val albums: ArrayList<Album>): RecyclerView.Adapter<ViewHold
         //viewPager(holder)    No caso de fazer albums com slider, seria dessa forma
     }
 
-    private fun viewPager(holder: ViewHolderAlbum, arrayListString: ArrayList<String>) {
+    /*private fun viewPager(holder: ViewHolderAlbum, arrayListString: ArrayList<String>) {
         val adapterViewPager = ViewPagerAdapter(context, arrayListString)
-        /*holder.imagemItem.apply {
+        holder.imagemItem.apply {
             startAutoScroll()
             adapter = adapterViewPager
             interval = 3000
-        }*/
-    }
+        }
+    }*/
 
 }
 
-class ViewHolderAlbum (view: View) : RecyclerView.ViewHolder(view) {
+class ViewHolderAlbum(view: View) : RecyclerView.ViewHolder(view) {
     val imagemItem = view.imagemAlbum
     val tituloItem = view.tituloAlbum
 }
