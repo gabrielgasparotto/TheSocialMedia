@@ -12,6 +12,7 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.runner.AndroidJUnit4
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.app.Constants
+import com.example.thesocialmedia.features.home.HomeActivity
 import com.example.thesocialmedia.features.login.LoginActivity
 import org.hamcrest.Matchers.allOf
 import org.junit.runner.RunWith
@@ -51,7 +52,7 @@ class LoginActivityTest {
         //Verifica a Intent que foi acionada após o click
         Intents.intended(
             allOf(
-                IntentMatchers.hasComponent(MainActivity::class.java.name)
+                IntentMatchers.hasComponent(HomeActivity::class.java.name)
             )
         )
     }
@@ -105,7 +106,7 @@ class LoginActivityTest {
         //Verifica a Intent que foi acionada após o click
         Intents.intended(
             allOf(
-                IntentMatchers.hasComponent(MainActivity::class.java.name)
+                IntentMatchers.hasComponent(HomeActivity::class.java.name)
             )
         )
 

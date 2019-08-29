@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.util.SnackbarUtils
-import com.example.thesocialmedia.view.activity.MainActivity
+import com.example.thesocialmedia.features.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), LoginContract.LoginUserView {
@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.LoginUserView {
     }
 
     override fun irParaTelaInicial() {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }

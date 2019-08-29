@@ -26,7 +26,7 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
-import com.example.thesocialmedia.view.activity.MainActivity
+import com.example.thesocialmedia.features.home.HomeActivity
 
 @RunWith(AndroidJUnit4::class)
 class PostsFragmentTest {
@@ -35,7 +35,7 @@ class PostsFragmentTest {
 
     @Rule @JvmField
     var activityTestRule = ActivityTestRule(
-        MainActivity::class.java,
+        HomeActivity::class.java,
         false,
         false
     )
