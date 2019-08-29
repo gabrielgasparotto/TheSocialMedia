@@ -6,9 +6,8 @@ import com.example.thesocialmedia.api.events.PostsEvent
 import com.example.thesocialmedia.model.Users
 import org.greenrobot.eventbus.Subscribe
 
-class PostsPresenter(postsUserView: PostsContract.PostsUserView)
-    : PostsContract.PostsBusiness(postsUserView){
-    override lateinit var context: Context
+class PostsPresenter(postsUserView: PostsContract.PostsUserView, override var context: Context) :
+    PostsContract.PostsBusiness(postsUserView) {
 
     override fun consultaPosts(usuario: Users) {
         PostsCall.listaPosts(usuario)

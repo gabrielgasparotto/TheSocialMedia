@@ -1,15 +1,15 @@
 package com.example.thesocialmedia.api.arch
 
 import android.content.Context
-import com.example.thesocialmedia.api.call.PostsCall
 import org.greenrobot.eventbus.EventBus
 
 interface BaseBusiness {
     var context: Context
 
-    fun aoIniciar(context: Context) {
+    fun aoIniciar(context: Context, configurarEventBus: Boolean = true) {
         this.context = context
-        registrarEventBus()
+
+        if (configurarEventBus) registrarEventBus()
     }
 
     fun aoFinalizar() {

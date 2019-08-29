@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.model.Photos
-import com.example.thesocialmedia.view.fragment.DialogPhotoFragment
+import com.example.thesocialmedia.features.photodetail.PhotoDetailFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_galeria.view.*
 import android.os.Bundle
@@ -46,38 +46,22 @@ class GaleriaAdapter(val fotos: ArrayList<Photos>)
             .load(foto.thumbnailUrl)
             .into(holder.imagemItem)
 
-
-        //Abrindo DialogFragment com a imagem
-        /*holder.imagemItem.setOnLongClickListener {
-            val dialogFragment = DialogPhotoFragment()
-            openDialogFragment(foto, dialogFragment)
-            true
-        }*/
-
-        val dialogFragment = DialogPhotoFragment()
+        val dialogFragment = PhotoDetailFragment()
         holder.imagemItem.setOnTouchListener { _, event ->
             when (event.action) {
-                MotionEvent.ACTION_UP -> {
-                    hideDialog(dialogFragment)
-                }
-                MotionEvent.ACTION_DOWN -> {
-                    showDialog(foto, dialogFragment)
-                }
-
-                MotionEvent.ACTION_CANCEL -> {
-                    hideDialog(dialogFragment)
-                }
+                MotionEvent.ACTION_UP -> hideDialog(dialogFragment)
+                MotionEvent.ACTION_DOWN -> showDialog(foto, dialogFragment)
+                MotionEvent.ACTION_CANCEL -> hideDialog(dialogFragment)
             }
             true
         }
-
     }
 
     private fun openDialogFragment(foto: Photos,
-                                   dialogFragment: DialogPhotoFragment) {
+                                   detailFragment: PhotoDetailFragment) {
         val bundle = Bundle()
         bundle.putSerializable("foto", foto)
-        dialogFragment.arguments = bundle
+        detailFragment.arguments = bundle
 
         val manager = (context as AppCompatActivity).supportFragmentManager
         val ft = manager.beginTransaction()
@@ -87,7 +71,7 @@ class GaleriaAdapter(val fotos: ArrayList<Photos>)
         }
         ft.addToBackStack(null)
 
-        dialogFragment.show(ft, "dialog")
+        detailFragment.show(ft, "dialog")
     }
 
     private fun initTouchEventHandler() {
@@ -99,8 +83,8 @@ class GaleriaAdapter(val fotos: ArrayList<Photos>)
     }
 
     private fun showDialog(foto: Photos,
-                           dialogFragment: DialogPhotoFragment) {
-        runnable = Runnable { openDialogFragment(foto, dialogFragment) }
+                           detailFragment: PhotoDetailFragment) {
+        runnable = Runnable { openDialogFragment(foto, detailFragment) }
         showDialogWithDelay()
     }
 
@@ -108,11 +92,11 @@ class GaleriaAdapter(val fotos: ArrayList<Photos>)
         handler.removeCallbacks(runnable)
     }
 
-    private fun hideDialog(dialog: DialogPhotoFragment) {
+    private fun hideDialog(detail: PhotoDetailFragment) {
         cancelRunnableTask()
 
-        if (dialog.isVisible) {
-            dialog.dismiss()
+        if (detail.isVisible) {
+            detail.dismiss()
         }
     }
 }

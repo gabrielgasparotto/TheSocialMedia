@@ -9,9 +9,8 @@ import com.example.thesocialmedia.util.UsuarioUtils
 import com.google.gson.Gson
 import org.greenrobot.eventbus.Subscribe
 
-class LoginPresenter(loginUserView: LoginContract.LoginUserView)
+class LoginPresenter(loginUserView: LoginContract.LoginUserView, override var context: Context)
     : LoginContract.LoginBusiness(loginUserView) {
-    override lateinit var context: Context
 
     override fun aoConsultarUsuario(nomeUsuario: String) {
         if (nomeUsuario.isBlank()) {

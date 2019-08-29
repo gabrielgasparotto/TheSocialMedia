@@ -15,7 +15,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.LoginUserView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        configurarBusiness(LoginPresenter(this))
+        configurarBusiness(LoginPresenter(this, applicationContext))
 
         buttonLogin.setOnClickListener {
             business.aoConsultarUsuario(usernameLogin.text.toString())

@@ -7,10 +7,8 @@ import com.example.thesocialmedia.api.events.AlbumEvent
 import com.example.thesocialmedia.model.Users
 import org.greenrobot.eventbus.Subscribe
 
-class AlbumPresenter(albumUserView: AlbumContract.AlbumUserView)
+class AlbumPresenter(albumUserView: AlbumContract.AlbumUserView, override var context: Context)
     : AlbumContract.AlbumBusiness(albumUserView){
-
-    override lateinit var context: Context
 
     override fun aoFinalizar() {
         super.aoFinalizar()
