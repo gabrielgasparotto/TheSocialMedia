@@ -30,7 +30,7 @@ class PostsFragment : Fragment(), PostsContract.PostsUserView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usuario = UsuarioUtils.usuario
-        configurarBusiness(PostsPresenter(this), activity!!.applicationContext)
+        configurarBusiness(PostsPresenter(this))
         business.consultaPosts(usuario)
         configuraToolbar(usuario)
     }

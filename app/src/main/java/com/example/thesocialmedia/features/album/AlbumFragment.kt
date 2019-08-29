@@ -30,7 +30,7 @@ class AlbumFragment : Fragment(), AlbumContract.AlbumUserView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usuario = UsuarioUtils.usuario
-        configurarBusiness(AlbumPresenter(this), activity!!.applicationContext)
+        configurarBusiness(AlbumPresenter(this))
         business.consultaAlbums(usuario)
         configuraToolbar(usuario)
     }

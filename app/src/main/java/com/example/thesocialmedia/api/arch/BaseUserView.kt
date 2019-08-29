@@ -1,13 +1,11 @@
 package com.example.thesocialmedia.api.arch
 
-import android.content.Context
-
 interface BaseUserView<BUSINESS : BaseBusiness> {
     var business: BUSINESS
 
-    fun configurarBusiness(business: BUSINESS, context: Context) {
+    fun configurarBusiness(business: BUSINESS) {
         this.business = business
-        this.business.aoIniciar(context)
+        this.business.aoIniciar(this.business.context)
     }
 
     fun finalizar() {
