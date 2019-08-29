@@ -5,7 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.features.album.AlbumFragment
 import com.example.thesocialmedia.features.posts.PostsFragment
-import com.example.thesocialmedia.view.fragment.MapsFragment
+import com.example.thesocialmedia.features.maps.MapsFragment
 
 class HomePresenter(homeUserView: HomeContract.HomeUserView, override var context: Context)
     : HomeContract.HomeBusiness(homeUserView) {

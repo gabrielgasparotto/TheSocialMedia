@@ -1,6 +1,5 @@
 package com.example.thesocialmedia.features.posts
 
-import android.support.v7.widget.RecyclerView
 import com.example.thesocialmedia.api.arch.BaseBusiness
 import com.example.thesocialmedia.api.arch.BaseUserView
 import com.example.thesocialmedia.model.Posts
