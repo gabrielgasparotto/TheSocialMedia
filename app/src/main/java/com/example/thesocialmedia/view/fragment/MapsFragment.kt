@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import com.example.thesocialmedia.R
+import com.example.thesocialmedia.model.Users
 import com.example.thesocialmedia.util.UsuarioUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,24 +30,27 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usuario = UsuarioUtils.usuario
+        configurarMapa(usuario.address.geo.lat, usuario.address.geo.lng)
+        configurarToolbar(view, usuario)
+    }
 
-        configuraMapa(usuario.address.geo.lat, usuario.address.geo.lng)
-
+    private fun configurarToolbar(view: View, usuario: Users) {
         view.toolbarMaps.apply {
             toolbarMaps.setTitleTextColor(Color.WHITE)
             title = usuario.name
         }
     }
 
-    private fun configuraMapa(latitude: Double, longitude: Double) {
+    private fun configurarMapa(latitude: Double, longitude: Double) {
         try {
             val mapFragment = childFragmentManager.findFragmentById(R.id.fragmentMaps) as SupportMapFragment
             mapFragment.getMapAsync(OnMapReadyCallback {
-                googleMap = it
                 val latLng = LatLng(latitude, longitude)
-                googleMap.addMarker(MarkerOptions().position(latLng))
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 1f))
-
+                googleMap = it
+                googleMap.apply {
+                    addMarker(MarkerOptions().position(latLng))
+                    animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 1f))
+                }
             })
         } catch (e: Exception) {
             Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()

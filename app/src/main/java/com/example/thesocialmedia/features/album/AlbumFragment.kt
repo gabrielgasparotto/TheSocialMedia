@@ -1,4 +1,4 @@
-package com.example.thesocialmedia.view.fragment
+package com.example.thesocialmedia.features.album
 
 import android.graphics.Color
 import android.os.Bundle

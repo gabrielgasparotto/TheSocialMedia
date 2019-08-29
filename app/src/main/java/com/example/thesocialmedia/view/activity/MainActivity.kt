@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.util.UsuarioUtils
-import com.example.thesocialmedia.view.fragment.AlbumFragment
+import com.example.thesocialmedia.features.album.AlbumFragment
 import com.example.thesocialmedia.view.fragment.MapsFragment
 import com.example.thesocialmedia.features.posts.PostsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,10 +42,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_posts
-        UsuarioUtils.populaUsuario(applicationContext)
     }
 
 }

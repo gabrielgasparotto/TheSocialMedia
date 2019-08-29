@@ -5,6 +5,7 @@ import com.example.thesocialmedia.api.call.UsersCall
 import com.example.thesocialmedia.api.events.UsersEvent
 import com.example.thesocialmedia.app.Constants
 import com.example.thesocialmedia.model.Users
+import com.example.thesocialmedia.util.UsuarioUtils
 import com.google.gson.Gson
 import org.greenrobot.eventbus.Subscribe
 
@@ -51,6 +52,7 @@ class LoginPresenter(loginUserView: LoginContract.LoginUserView)
             loginUserView.irParaTelaInicial()
             consultaCheckBox(loginUserView.obterEstadoCheckboxPermanecerLogado())
             mantemDadosUsuario(usersEvent.users[0])
+            UsuarioUtils.populaUsuario(context)
         }
     }
 }

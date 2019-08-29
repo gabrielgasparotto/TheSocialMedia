@@ -18,7 +18,6 @@ class DialogPhotoFragment : DialogFragment() {
         savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_fragment_photo, container, false)
 
-
         val foto = arguments!!.getSerializable("foto") as Photos
         view.tituloDialogGaleria.text = foto.title
         Picasso
