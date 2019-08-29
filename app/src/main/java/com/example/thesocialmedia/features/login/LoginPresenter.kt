@@ -26,10 +26,10 @@ class LoginPresenter(loginUserView: LoginContract.LoginUserView, override var co
 
     private fun salvarPreferenciaPermaneceLogado(permanece: Boolean){
         val sharedPreference = context.getSharedPreferences(
-            Constants.permaneceDB, Context.MODE_PRIVATE
+            Constants.PERMANECE_DATABASE, Context.MODE_PRIVATE
         )
         val editor = sharedPreference.edit()
-        editor.putBoolean(Constants.userPermanece, permanece)
+        editor.putBoolean(Constants.USER_PERMANECE, permanece)
         editor.apply()
     }
 

@@ -112,7 +112,7 @@ class LoginActivityTest {
 
         //Pega shared preferences e verifica o valor
         val sharedPref = getAppSharedPref()
-        Assert.assertTrue(sharedPref.getBoolean(Constants.userPermanece, false))
+        Assert.assertTrue(sharedPref.getBoolean(Constants.USER_PERMANECE, false))
     }
 
     private fun clearAppSharedPref() = getAppSharedPref()
@@ -122,5 +122,5 @@ class LoginActivityTest {
 
     private fun getAppSharedPref() = InstrumentationRegistry
         .getTargetContext()
-        .getSharedPreferences(Constants.permaneceDB, Context.MODE_PRIVATE)
+        .getSharedPreferences(Constants.PERMANECE_DATABASE, Context.MODE_PRIVATE)
 }
