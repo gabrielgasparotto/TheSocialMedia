@@ -10,6 +10,12 @@ import org.greenrobot.eventbus.Subscribe
 class GaleriaPresenter(galeriaUserView: GaleriaContract.GaleriaUserView, override var context: Context)
     : GaleriaContract.GaleriaBusiness(galeriaUserView) {
 
+    override fun aoIniciar(context: Context, configurarEventBus: Boolean) {
+        super.aoIniciar(context, configurarEventBus)
+        val album = configuraAlbum(galeriaUserView.capturaIntent())
+        galeriaUserView.configuraToolbar(album.title)
+    }
+
     override fun configuraAlbum(intent: Intent): Album {
         val album = intent.getSerializableExtra("album") as Album
         GaleriaCall.listaGaleria(album)

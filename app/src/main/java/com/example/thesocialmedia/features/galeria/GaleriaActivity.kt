@@ -1,5 +1,6 @@
 package com.example.thesocialmedia.features.galeria
 
+import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -25,16 +26,17 @@ class GaleriaActivity : AppCompatActivity(), GaleriaContract.GaleriaUserView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_galeria)
         setSupportActionBar(toolbarGaleria)
+
         configurarBusiness(GaleriaPresenter(this, applicationContext))
-        val album = business.configuraAlbum(intent)
-        configuraToolbar(album)
     }
 
-    private fun configuraToolbar(album: Album) {
+    override fun capturaIntent(): Intent = intent
+
+    override fun configuraToolbar(titulo: String) {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            title = album.title
+            title = titulo
         }
         toolbarGaleria.setTitleTextColor(Color.WHITE)
     }
