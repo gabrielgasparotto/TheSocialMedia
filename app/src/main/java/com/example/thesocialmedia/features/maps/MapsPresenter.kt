@@ -10,14 +10,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsPresenter(mapsUserView: MapsContract.MapsUserView, override var context: Context)
+class MapsPresenter(mapsUserView: MapsContract.MapsUserView, override var context: Context, val fragment: MapsFragment)
     : MapsContract.MapsBusiness(mapsUserView) {
 
     override fun aoIniciar(context: Context, configurarEventBus: Boolean) {
         super.aoIniciar(context, false)
         val user = UsuarioUtils.usuario
         mapsUserView.configurarToolbar(user.name)
-        configuraMapa(user.address.geo.lat, user.address.geo.lng, mapsUserView.capturaFragment())
+        configuraMapa(user.address.geo.lat, user.address.geo.lng, fragment)
     }
 
     override fun configuraMapa(latitude: Double, longitude: Double, fragment: MapsFragment) {

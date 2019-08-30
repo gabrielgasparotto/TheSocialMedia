@@ -23,10 +23,8 @@ class MapsFragment : Fragment(), MapsContract.MapsUserView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        configurarBusiness(MapsPresenter(this, context!!))
+        configurarBusiness(MapsPresenter(this, context!!, this))
     }
-
-    override fun capturaFragment(): MapsFragment = this
 
     override fun configurarToolbar(titulo: String) {
         root.toolbarMaps.apply {

@@ -8,7 +8,6 @@ class MapsContract {
     interface MapsUserView : BaseUserView<MapsBusiness> {
         fun exibeSnackbar(mensagem: String)
         fun configurarToolbar(titulo: String)
-        fun capturaFragment(): MapsFragment
     }
 
     abstract class MapsBusiness(val mapsUserView: MapsUserView) : BaseBusiness {
