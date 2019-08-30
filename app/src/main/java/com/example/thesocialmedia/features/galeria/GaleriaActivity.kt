@@ -20,10 +20,8 @@ class GaleriaActivity : AppCompatActivity(), GaleriaContract.GaleriaUserView {
         setContentView(R.layout.activity_galeria)
         setSupportActionBar(toolbarGaleria)
 
-        configurarBusiness(GaleriaPresenter(this, applicationContext))
+        configurarBusiness(GaleriaPresenter(this, applicationContext, intent))
     }
-
-    override fun capturaIntent(): Intent = intent
 
     override fun configuraToolbar(titulo: String) {
         supportActionBar?.apply {

@@ -7,7 +7,7 @@ import com.example.thesocialmedia.api.events.PhotosEvent
 import com.example.thesocialmedia.model.Album
 import org.greenrobot.eventbus.Subscribe
 
-class GaleriaPresenter(galeriaUserView: GaleriaContract.GaleriaUserView, override var context: Context)
+class GaleriaPresenter(galeriaUserView: GaleriaContract.GaleriaUserView, override var context: Context, val intent: Intent)
     : GaleriaContract.GaleriaBusiness(galeriaUserView) {
 
     override fun aoIniciar(context: Context, configurarEventBus: Boolean) {

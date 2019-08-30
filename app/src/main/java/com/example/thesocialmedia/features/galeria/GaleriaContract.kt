@@ -12,7 +12,6 @@ class GaleriaContract {
         fun exibeSnackbar(mensagem: String)
         fun configuraRecycler(photos: ArrayList<Photos>)
         fun configuraToolbar(titulo: String)
-        fun capturaIntent(): Intent
     }
 
     abstract class GaleriaBusiness(val galeriaUserView: GaleriaUserView) : BaseBusiness {
