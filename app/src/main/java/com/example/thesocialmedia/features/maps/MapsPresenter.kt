@@ -2,6 +2,7 @@ package com.example.thesocialmedia.features.maps
 
 import android.content.Context
 import com.example.thesocialmedia.R
+import com.example.thesocialmedia.util.UsuarioUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -14,6 +15,9 @@ class MapsPresenter(mapsUserView: MapsContract.MapsUserView, override var contex
 
     override fun aoIniciar(context: Context, configurarEventBus: Boolean) {
         super.aoIniciar(context, false)
+        val user = UsuarioUtils.usuario
+        mapsUserView.configurarToolbar(user.name)
+        configuraMapa(user.address.geo.lat, user.address.geo.lng, mapsUserView.capturaFragment())
     }
 
     override fun configuraMapa(latitude: Double, longitude: Double, fragment: MapsFragment) {

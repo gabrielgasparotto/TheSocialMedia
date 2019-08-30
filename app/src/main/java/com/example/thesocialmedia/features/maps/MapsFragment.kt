@@ -6,19 +6,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import com.example.thesocialmedia.R
-import com.example.thesocialmedia.model.Users
 import com.example.thesocialmedia.util.SnackbarUtils
-import com.example.thesocialmedia.util.UsuarioUtils
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 
 class MapsFragment : Fragment(), MapsContract.MapsUserView {
@@ -33,16 +23,15 @@ class MapsFragment : Fragment(), MapsContract.MapsUserView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val usuario = UsuarioUtils.usuario
         configurarBusiness(MapsPresenter(this, context!!))
-        business.configuraMapa(usuario.address.geo.lat, usuario.address.geo.lng, this)
-        configurarToolbar(view, usuario)
     }
 
-    private fun configurarToolbar(view: View, usuario: Users) {
+    override fun capturaFragment(): MapsFragment = this
+
+    override fun configurarToolbar(titulo: String) {
         root.toolbarMaps.apply {
             toolbarMaps.setTitleTextColor(Color.WHITE)
-            title = usuario.name
+            title = titulo
         }
     }
 
