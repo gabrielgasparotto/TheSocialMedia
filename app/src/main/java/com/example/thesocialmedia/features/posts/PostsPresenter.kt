@@ -3,14 +3,21 @@ package com.example.thesocialmedia.features.posts
 import android.content.Context
 import com.example.thesocialmedia.api.call.PostsCall
 import com.example.thesocialmedia.api.events.PostsEvent
-import com.example.thesocialmedia.model.Users
+import com.example.thesocialmedia.util.UsuarioUtils
 import org.greenrobot.eventbus.Subscribe
 
 class PostsPresenter(postsUserView: PostsContract.PostsUserView, override var context: Context) :
     PostsContract.PostsBusiness(postsUserView) {
 
-    override fun consultaPosts(usuario: Users) {
-        PostsCall.listaPosts(usuario)
+    override fun aoIniciar(context: Context, configurarEventBus: Boolean) {
+        super.aoIniciar(context, configurarEventBus)
+        consultaPosts()
+        preencheItens()
+
+    }
+
+    override fun consultaPosts() {
+        PostsCall.listaPosts(UsuarioUtils.usuario)
     }
 
     override fun aoFinalizar() {
@@ -18,6 +25,15 @@ class PostsPresenter(postsUserView: PostsContract.PostsUserView, override var co
         if (PostsCall.call.isExecuted) {
             PostsCall.call.cancel()
         }
+    }
+
+    fun preencheItens() {
+        postsUserView.preencherToolbar(
+            UsuarioUtils.usuario.name,
+            UsuarioUtils.usuario.email,
+            UsuarioUtils.usuario.phone,
+            UsuarioUtils.usuario.company.name
+        )
     }
 
     @Subscribe

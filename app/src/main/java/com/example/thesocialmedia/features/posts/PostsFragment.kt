@@ -29,10 +29,7 @@ class PostsFragment : Fragment(), PostsContract.PostsUserView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val usuario = UsuarioUtils.usuario
         configurarBusiness(PostsPresenter(this, context!!))
-        business.consultaPosts(usuario)
-        configuraToolbar(usuario)
     }
 
     override fun onDestroyView() {
@@ -44,21 +41,25 @@ class PostsFragment : Fragment(), PostsContract.PostsUserView {
         SnackbarUtils().showSnack(mensagem, recyclerPosts, activity!!.applicationContext)
     }
 
-    private fun configuraToolbar(usuario: Users) {
+    override fun preencherToolbar(nome: String, email: String, telefone: String, company: String) {
+        configuraToolbar(nome)
+        nomeCompletoToolbar.text = nome
+        emailToolbar.text = email
+        telefoneToolbar.text = telefone
+        companyToolbar.text = company
+    }
+
+
+    override fun configuraToolbar(titulo: String) {
         val states = arrayOf(intArrayOf(android.R.attr.state_enabled))
         val colors = intArrayOf(Color.TRANSPARENT)
         val myList = ColorStateList(states, colors)
 
         collapsingPosts.apply {
-            title = usuario.name
+            title = titulo
             setCollapsedTitleTextColor(Color.WHITE)
             setExpandedTitleTextColor(myList)
         }
-
-        nomeCompletoToolbar.text = usuario.name
-        emailToolbar.text = usuario.email
-        telefoneToolbar.text = usuario.phone
-        companyToolbar.text = usuario.company.name
     }
 
     override fun configuraRecycler(posts: ArrayList<Posts>) {
