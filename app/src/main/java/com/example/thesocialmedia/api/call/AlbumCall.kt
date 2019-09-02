@@ -1,6 +1,5 @@
 package com.example.thesocialmedia.api.call
 
-import android.support.v7.widget.RecyclerView
 import com.example.thesocialmedia.api.configuration.RetrofitInitializer
 import com.example.thesocialmedia.api.events.AlbumEvent
 import com.example.thesocialmedia.extension.callback
