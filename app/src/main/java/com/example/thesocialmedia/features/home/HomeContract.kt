@@ -9,6 +9,9 @@ class HomeContract {
 
     interface HomeUserView : BaseUserView<HomeBusiness> {
         fun reposicionaFragment(fragment: Fragment)
+        fun irParaPosts()
+        fun irParaAlbum()
+        fun irParaMaps()
     }
 
     abstract class HomeBusiness(val homeUserView: HomeUserView): BaseBusiness {

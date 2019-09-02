@@ -4,11 +4,11 @@ import android.content.Context
 import android.support.design.widget.BottomNavigationView
 import com.example.thesocialmedia.R
 import com.example.thesocialmedia.features.album.AlbumFragment
-import com.example.thesocialmedia.features.posts.PostsFragment
 import com.example.thesocialmedia.features.maps.MapsFragment
+import com.example.thesocialmedia.features.posts.PostsFragment
 
-class HomePresenter(homeUserView: HomeContract.HomeUserView, override var context: Context)
-    : HomeContract.HomeBusiness(homeUserView) {
+class HomePresenter(homeUserView: HomeContract.HomeUserView, override var context: Context) :
+    HomeContract.HomeBusiness(homeUserView) {
 
     override fun aoIniciar(context: Context, configurarEventBus: Boolean) {
         super.aoIniciar(context, false)
@@ -19,15 +19,18 @@ class HomePresenter(homeUserView: HomeContract.HomeUserView, override var contex
             .OnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_posts -> {
-                        homeUserView.reposicionaFragment(PostsFragment())
+                        //homeUserView.irParaPosts() // Opção mais "verbosa"
+                        homeUserView.reposicionaFragment(PostsFragment()) // Opção mais "genérica"
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.navigation_album -> {
-                        homeUserView.reposicionaFragment(AlbumFragment())
+                        //homeUserView.irParaAlbum() // Opção mais "verbosa"
+                        homeUserView.reposicionaFragment(AlbumFragment()) // Opção mais "genérica"
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.navigation_maps -> {
-                        homeUserView.reposicionaFragment(MapsFragment())
+                        //homeUserView.irParaMaps() // Opção mais "verbosa"
+                        homeUserView.reposicionaFragment(MapsFragment()) // Opção mais "genérica"
                         return@OnNavigationItemSelectedListener true
                     }
                 }

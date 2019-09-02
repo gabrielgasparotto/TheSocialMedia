@@ -12,7 +12,7 @@ class GaleriaPresenter(galeriaUserView: GaleriaContract.GaleriaUserView, overrid
 
     override fun aoIniciar(context: Context, configurarEventBus: Boolean) {
         super.aoIniciar(context, configurarEventBus)
-        val album = configuraAlbum(galeriaUserView.capturaIntent())
+        val album = configuraAlbum(intent)
         galeriaUserView.configuraToolbar(album.title)
     }
 

@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.thesocialmedia.R
+import com.example.thesocialmedia.features.album.AlbumFragment
+import com.example.thesocialmedia.features.maps.MapsFragment
+import com.example.thesocialmedia.features.posts.PostsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : AppCompatActivity(), HomeContract.HomeUserView {
@@ -27,7 +30,19 @@ class HomeActivity : AppCompatActivity(), HomeContract.HomeUserView {
     override fun reposicionaFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container, fragment , javaClass.simpleName)
+            .replace(R.id.container, fragment, javaClass.simpleName)
             .commit()
+    }
+
+    override fun irParaPosts() {
+        reposicionaFragment(PostsFragment())
+    }
+
+    override fun irParaAlbum() {
+        reposicionaFragment(AlbumFragment())
+    }
+
+    override fun irParaMaps() {
+        reposicionaFragment(MapsFragment())
     }
 }
